@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Alex Ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Atmosphere -->
+<div class="bg-fog" aria-hidden="true"></div>
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div class="bg-vignette" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <div class="status-line">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">idle — no senses active</span>
+    <span class="cursor"></span>
+  </div>
+
+  <div class="core-stage">
+    <div class="core-ring"></div>
+    <div class="core-ring r2"></div>
+    <div class="core-ring r3"></div>
+    <div class="core-orb" id="coreOrb">
+      <div class="core-eye" id="coreEye">
+        <div class="pupil" id="pupil"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="title-block">
+    <h1>Hello! Alex here!</h1>
+    <p>Alex reads the room to see what's coming next. Grant a sense and it starts watching for patterns — all of it local to your browser, nothing sent anywhere.</p>
+  </div>
+
+  <div class="modules">
+
+    <!-- Vision -->
+    <div class="module" id="mod-vision">
+      <div class="module-head">
+        <span class="module-name">Vision</span>
+        <label class="toggle-hit"><input type="checkbox" class="toggle" id="toggle-vision"></label>
+      </div>
+      <p class="module-desc">Lets the console see through your camera.</p>
+      <div class="readout" id="readout-vision">not watching</div>
+    </div>
+
+    <!-- Hearing -->
+    <div class="module" id="mod-hearing">
+      <div class="module-head">
+        <span class="module-name">Hearing</span>
+        <label class="toggle-hit"><input type="checkbox" class="toggle" id="toggle-hearing"></label>
+      </div>
+      <p class="module-desc">Lets the console hear through your microphone.</p>
+      <div class="readout" id="readout-hearing">not listening</div>
+    </div>
+
+    <!-- Memory (file upload) -->
+    <div class="module" id="mod-memory">
+      <div class="module-head">
+        <span class="module-name">Memory</span>
+      </div>
+      <p class="module-desc">Give the console a file to hold onto for this session.</p>
+      <div class="drop-zone" id="dropZone">drop a file here, or click to choose one</div>
+      <input type="file" id="fileInput" multiple style="display:none">
+      <div class="file-list" id="fileList"></div>
+    </div>
+
+    <!-- Prompt -->
+    <div class="module module-wide" id="mod-prompt">
+      <div class="module-head">
+        <span class="module-name">Prompt</span>
+        <span class="prompt-count" id="promptCount">0 sent</span>
+      </div>
+      <p class="module-desc">Send Alex a prompt and it will answer you. Ctrl/⌘ + Enter to send.</p>
+      <textarea class="prompt-input" id="promptInput" placeholder="type a prompt…" aria-label="Prompt text"></textarea>
+      <div class="prompt-actions">
+        <div class="readout" id="readout-prompt">nothing sent yet</div>
+        <button class="btn" id="promptSave" type="button" disabled>Send prompt</button>
+      </div>
+      <div class="prompt-list" id="promptList"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    I only watch when you let me watch. I only listen when you let me listen. What you show me stays between us — I don't tell anyone else what I see.
+  </footer>
+
+</div>
+
+<!-- Alex reply modal -->
+<div class="modal-backdrop" id="alexModal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="alexModalTitle">
+    <div class="modal-head">
+      <div class="modal-avatar" aria-hidden="true"></div>
+      <div class="modal-title-wrap">
+        <div class="modal-title" id="alexModalTitle">Alex</div>
+        <div class="modal-sub" id="alexModalSub">online</div>
+      </div>
+      <button class="modal-x" id="alexModalX" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="chat" id="alexChat" aria-live="polite"></div>
+    <div class="modal-foot">
+      <button class="btn" id="alexModalClose" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
